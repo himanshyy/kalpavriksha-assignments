@@ -3,7 +3,7 @@
 ## Assignment 1 - Calculator
 
 ### Description
-This project implements a console-based calculator in C that accepts a mathematical expression as a string and evaluates it using the supported arithmetic operators +, -, *, and /. The calculator follows operator precedence, performs integer arithmetic, ignores whitespace between numbers and operators, and handles invalid expressions and division-by-zero cases with appropriate error messages.
+This project implement a console based calculator in c that accpt a mathematical expression as a string and evaluate it using arithmetic operator like +,-,*,/.
 
 ### Features
 - Accepts a mathematical expression as a string
@@ -16,7 +16,7 @@ This project implements a console-based calculator in C that accepts a mathemati
 
 ### Compilation
 
-Open the terminal in the project folder and run:
+Open the terminal in project folder and run this command :
 
 ```bash
 cd Assignment-1
