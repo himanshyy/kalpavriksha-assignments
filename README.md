@@ -1,34 +1,17 @@
-# Assignment 2 – CRUD Operations in C
+# Kalpavriksha Assignments
 
-## Overview
+This repository contains my assignments completed as part of the Kalpavriksha Program.
 
-This assignment implements a basic CRUD (Create, Read, Update, Delete) system in C using file handling.
+## Assignments
 
-The program stores user data in a text file named `users.txt`.
+### Assignment 1 – Calculator
+A console-based calculator implemented in C that evaluates mathematical expressions with operator precedence.
 
-## User Information
+### Assignment 2 – CRUD Operations
+A C program implementing Create, Read, Update, and Delete operations using file handling and persistent storage.
 
-Each user contains:
+## Technologies Used
 
-- ID
-- Name
-- Age
-
-The ID of each user must be unique.
-
-## Features
-
-- **Create:** Add a new user.
-- **Read:** Display all stored users.
-- **Update:** Update an existing user's name and age using the user ID.
-- **Delete:** Delete a user using the user ID.
-- **Persistent Storage:** Store user data in `users.txt`.
-
-## How to Run
-
-### 1. Compile the program
-
-Open a terminal in the `Assignment-2` folder and run:
-
-```bash
-gcc assignment2.c -o assignment2
+- C
+- Data Structures and Programming Fundamentals
+- File Handling
