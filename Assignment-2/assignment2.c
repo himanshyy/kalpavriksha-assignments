@@ -60,7 +60,7 @@ void addUser(){
     fclose(fptr);
 }
     if(found==1){
-        printf("ID Alredy Exist");
+        printf("ID Alredy Exist\n");
     }
     if(found==0){
     fptr=fopen("users.txt","a");
@@ -76,7 +76,7 @@ void addUser(){
 
         fprintf(fptr,"%d|%s|%d\n", checkID,d1.name,d1.age);
         fclose(fptr);
-        printf("User Added Successfully");
+        printf("User Added Successfully\n");
         }
     else{
         printf("Error: Could not open file\n");
