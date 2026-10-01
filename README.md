@@ -1,26 +1,17 @@
 # Kalpavriksha Assignments
 
-## Assignment 1 - Calculator
+This repository contains my assignments completed as part of the Kalpavriksha Program.
 
-### Description
-This project implements a console-based calculator in C that accepts a mathematical expression as a string and evaluates it using the supported arithmetic operators +, -, *, and /. The calculator follows operator precedence, performs integer arithmetic, ignores whitespace between numbers and operators, and handles invalid expressions and division-by-zero cases with appropriate error messages.
+## Assignments
 
-### Features
-- Accepts a mathematical expression as a string
-- Supports `+`, `-`, `*`, `/`
-- Follows operator precedence
-- Performs integer arithmetic
-- Handles whitespace between numbers and operators
-- Validates the expression
-- Handles division by zero
+### Assignment 1 – Calculator
+A console-based calculator implemented in C that evaluates mathematical expressions with operator precedence.
 
-### Compilation
+### Assignment 2 – CRUD Operations
+A C program implementing Create, Read, Update, and Delete operations using file handling and persistent storage.
 
-Open the terminal in the project folder and run:
+## Technologies Used
 
-```bash
-cd Assignment-1
-gcc Assignment1.c -o Assignment1.exe
-
-How to Run:
-.\Assignment1.exe
+- C
+- Data Structures and Programming Fundamentals
+- File Handling
