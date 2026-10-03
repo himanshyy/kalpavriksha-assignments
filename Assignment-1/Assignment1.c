@@ -1,135 +1,165 @@
 #include<stdio.h>
-int checkexpression(char *expression);
-void calculate(char *expression);
-void reduce(int *number, char *operator, int *intcount, int *operatorcount,int i);
 
-int main(){
+int checkExpression(char *expression);
+void calculate(char *expression);
+void reduce(int *number, char *operator, int *intCount, int *operatorCount, int i);
+
+int main()
+{
     char expression[100];
     printf("write a expression to calculate : ");
-    fgets(expression, sizeof(expression),stdin);
-    if (checkexpression(expression)==1) {
+    fgets(expression, sizeof(expression), stdin);
+    if(checkExpression(expression) == 1) 
+    {
         calculate(expression);
     }
     return 0;
 }
-void calculate(char *expression){
+void calculate(char *expression)
+{
     char operator[50];
-    int num=0;
+    int num = 0;
     int number[50];
-    int intcount=0;
-    int operatorcount=0;
+    int intCount = 0;
+    int operatorCount = 0;
 
-    for(int i=0; expression[i]!='\0';i++){
-        if(expression[i]==' '){
+    for(int i = 0; expression[i] != '\0'; i++)
+    {
+        if(expression[i] == ' ')
+        {
             continue;
         }
             //number check
-        if(expression[i]>='0' && expression[i]<='9'){
-            while  (expression[i]>='0' && expression[i]<='9'){
-                num=num*10+(expression[i]-'0');
+        if(expression[i] >= '0' && expression[i] <= '9')
+        {
+            while(expression[i] >= '0' && expression[i] <= '9')
+            {
+                num = num * 10 + (expression[i] - '0');
                 i++;
             }
-            number[intcount]=num;
-            intcount++;
+            number[intCount] = num;
+            intCount++;
             i--;
         }
-        else if(expression[i]=='+' || expression[i]=='-' || expression[i]=='*' || expression[i]=='/'){
-            operator[operatorcount]=expression[i];
-            operatorcount++;
-            num=0;
+        else if(expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/')
+        {
+            operator[operatorCount] = expression[i];
+            operatorCount++;
+            num = 0;
         }
            
     }
     //firstly we will calculate the multiplication and division        
-    for(int i=0;i<operatorcount;i++){
-        if(operator[i]=='*'){
-            int result=number[i]*number[i+1];
-            number[i]=result;
-            reduce(number,operator,&intcount,&operatorcount,i);
+    for(int i = 0; i < operatorCount; i++)
+    {
+        if(operator[i] == '*')
+        {
+            int result = number[i] * number[i+1];
+            number[i] = result;
+            reduce(number, operator, &intCount, &operatorCount, i);
             i--;
         }
-        else if (operator[i]=='/'){
-            if (number[i+1]==0){
+        else if(operator[i] == '/')
+        {
+            if(number[i+1] == 0)
+            {
                 printf("Error: Division by zero.\n");
                 return;
             }
-            int result=number[i]/number[i+1];
-            number[i]=result;
-            reduce(number,operator,&intcount,&operatorcount,i);
+            int result = number[i] / number[i+1];
+            number[i] = result;
+            reduce(number, operator, &intCount, &operatorCount, i);
             i--;
         }
     }
     //then we will calculate the addition and subtraction
-    for(int i=0;i<operatorcount;i++){
-        if(operator[i]=='+'){
-            int result=number[i]+number[i+1];
-            number[i]=result;
-            reduce(number,operator,&intcount,&operatorcount,i);
+    for(int i = 0; i < operatorCount; i++)
+    {
+        if(operator[i] == '+')
+        {
+            int result = number[i] + number[i+1];
+            number[i] = result;
+            reduce(number, operator, &intCount, &operatorCount, i);
             i--;
         }
-        else if (operator[i]=='-'){
-            int result=number[i]-number[i+1];
-            number[i]=result;
-            reduce(number,operator,&intcount,&operatorcount,i);
+        else if(operator[i] == '-')
+        {
+            int result = number[i] - number[i+1];
+            number[i] = result;
+            reduce(number, operator, &intCount, &operatorCount, i);
             i--;
         }
     }
     printf("Result: %d\n",number[0]); 
 }
 
-void reduce(int *number, char *operator, int *intcount, int *operatorcount,int i){
+void reduce(int *number, char *operator, int *intCount, int *operatorCount, int i)
+{
     //  reducing the expression
-        for(int j=i+1;j<*intcount-1;j++){
-            number[j]=number[j+1];
+        for(int j=i+1; j < *intCount-1; j++)
+        {
+            number[j] = number[j+1];
         }
-        (*intcount)--;
-        for(int j=i;j<*operatorcount-1;j++){
-            operator[j]=operator[j+1];
+        (*intCount)--;
+        for(int j=i; j < *operatorCount-1; j++)
+        {
+            operator[j] = operator[j+1];
         }
-        (*operatorcount)--;
+        (*operatorCount)--;
 }
 
-int checkexpression(char *expression){
-    int valid=1;
-    int seen_number=0;
-    int spaces=0;
+int checkExpression(char *expression)
+{
+    int valid = 1;
+    int seenNumber = 0;
+    int spaces = 0;
 
-    for(int i=0; expression[i]!='\0';i++){
-        if(!(expression[i]=='+' || expression[i]=='-' || expression[i]=='*' || expression[i]=='/'|| expression[i]=='\n' ||expression[i]==' '|| (expression[i]>='0' && expression[i]<='9'))){
-            valid=0;
+    for(int i = 0; expression[i] != '\0'; i++)
+    {
+        if(!(expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/'|| expression[i] == '\n' ||expression[i] == ' '|| (expression[i] >= '0' && expression[i] <= '9')))
+        {
+            valid = 0;
             break;
         }
         // check if the expression starts with an operator
-        if(expression[i]>='0'&& expression[i]<='9'){
-            if(spaces==1){
-                valid=0;
+        if(expression[i] >= '0' && expression[i] <= '9')
+        {
+            if(spaces == 1)
+            {
+                valid = 0;
                 break;
             } 
-            seen_number=1;
+            seenNumber = 1;
         }
-        else if(expression[i]==' '){
-            if(seen_number==1){
-                spaces=1;
+        else if(expression[i] == ' ')
+        {
+            if(seenNumber == 1)
+            {
+                spaces = 1;
             }
         }
-        else if(expression[i]=='+' || expression[i]=='-' || expression[i]=='*' || expression[i]=='/'){
-            if(seen_number==0){
-                valid=0;
+        else if(expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/')
+        {
+            if(seenNumber == 0)
+            {
+                valid = 0;
                 break;
             }
-            seen_number=0;
-            spaces=0;
+            seenNumber = 0;
+            spaces = 0;
         }
     }
-    if(seen_number==0){
-        valid=0;
+    if(seenNumber == 0)
+    {
+        valid = 0;
     }
-    if (valid==0){
-        printf("Error: Invalid expression. \n");
+    if(valid == 0)
+    {
+        printf("Error: Invalid expression.\n");
         return 0;
     }
-    else{
-        //printf("valid expression \n");
+    else
+    {
         return 1;
     }
 }
