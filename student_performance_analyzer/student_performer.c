@@ -42,7 +42,15 @@ int main()
 
         for(int j = 0; j < 3; j++)
         {
-            scanf("%d", &student[i].marks[j]);
+            int result=scanf("%d", &student[i].marks[j]);
+            if(result != 1)
+            {
+                printf("Invalid input. Please enter an integer value for marks: \n");
+                while(getchar() != '\n');
+                j--;
+                continue;
+
+            }
             while(student[i].marks[j] < 0 || student[i].marks[j] > 100)
             {
                 printf("Invalid marks. please enter marks between 0 and 100: \n");
