@@ -13,21 +13,21 @@ float calculateAverage(int total, int size);
 char calculateGrade(float average);
 void performanceStars(char grade);
 void printOutput(int rollNo, char name[], int total, float average, char grade);
-void printRollno(int n);
+void printRollno(int studentCount);
 
 int main()
 {
-    int n;
+    int studentCount;
     printf("Enter the number of students: ");
-    scanf("%d", &n);
+    scanf("%d", &studentCount);
 
-    if(n <= 0 || n > 100)
+    if(studentCount <= 0 || studentCount > 100)
     {
         printf("Invalid number of student. Please enter a number between 1 and 100 \n");
         return 0;
     }
 
-    struct student *student = (struct student*) malloc(n*sizeof(struct student));
+    struct student *student = (struct student*) malloc(studentCount*sizeof(struct student));
 
     if(student == NULL)
     {
@@ -35,7 +35,7 @@ int main()
         return 0;
     }
 
-    for(int i = 0; i < n; i++)
+    for(int i = 0; i < studentCount; i++)
     {
         printf("Enter the details of student %d (Roll Number, Name, Marks of 3 subjects): \n", i+1);
         scanf("%d %499s", &student[i].rollNo, student[i].name);
@@ -73,7 +73,7 @@ int main()
         performanceStars(grade);
     }
     printf("list of Roll Number (via recursion): ");
-    printRollno(n);
+    printRollno(studentCount);
 
     free(student);
     return 0;
@@ -149,14 +149,14 @@ void printOutput(int rollNo, char name[], int total, float average, char grade)
     printf("Grade: %c\n", grade);
 }
 
-void printRollno(int n)
+void printRollno(int studentCount)
 {
-   if(n <= 0)
+   if(studentCount <= 0)
    {
       return;
    }
 
-   printRollno(n-1);
-   printf("%d ", n);
+   printRollno(studentCount-1);
+   printf("%d ", studentCount);
 
 }
