@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
-int isValidCategory(int choice);
-int isValidTicketCount(int numberOfTickets);
-void printOutput(char name[], int numberOfTickets, char category[], float subTotal, float discount, float finalPrice);
+bool isValidCategory(int choice);
+bool isValidTicketCount(int numberOfTickets);
+void printTicketDetails(char name[], int numberOfTickets, char category[], float subTotal, float discount, float finalPrice);
+
+const int standardPrice = 150;
+const int premiumPrice = 250;
+const int reclinerPrice = 400;
 
 int main()
 {
@@ -14,10 +19,6 @@ int main()
     int choice;
     int ticketPrice;
 
-    const int standardPrice = 150;
-    const int premiumPrice = 250;
-    const int reclinerPrice = 400;
-
     printf("-----------Movie Ticket Booking System------------\n");
 
     // Get customer details
@@ -25,13 +26,14 @@ int main()
     printf("Enter Customer Name: \n");
     scanf("%99s", name);
 
+    //repeat until valid ticket count is entered
     while (1)
     {
         printf("Enter number of tickets (1-20): \n");
         scanf("%d", &numberOfTickets);
 
-        int checkTicket = isValidTicketCount(numberOfTickets);
-        if (checkTicket == 1)
+        bool checkTicket = isValidTicketCount(numberOfTickets);
+        if (checkTicket)
         {
             break;
         }
@@ -47,8 +49,8 @@ int main()
         printf("Enter your choice (1-3): \n");
         scanf("%d", &choice);
 
-        int checkCategory = isValidCategory(choice);
-        if (checkCategory == 1)
+        bool checkCategory = isValidCategory(choice);
+        if (checkCategory)
         {
             break;
         }
@@ -87,41 +89,37 @@ int main()
 
     float finalPrice = subTotal - discount;
 
-    printOutput(name, numberOfTickets, category, subTotal, discount, finalPrice);
+    printTicketDetails(name, numberOfTickets, category, subTotal, discount, finalPrice);
 
     return 0;
 }
 
 // function to validate category choice
 
-int isValidCategory(int choice)
-{
-    int valid = 1;
-
+bool isValidCategory(int choice)
+{   
     if (choice < 1 || choice > 3)
     {
         printf("Invalid category choice! Please enter a number between 1 and 3. \n");
-        valid = 0;
+        return false;
     }
-    return valid;
+    return true;
 }
 
 //function to validate ticket count
-
-int isValidTicketCount(int numberOfTickets)
+bool isValidTicketCount(int numberOfTickets)
 {
-    int valid = 1;
     if (numberOfTickets < 1 || numberOfTickets > 20)
     {
         printf("Invalid ticket count! Please enter a number between 1 and 20. \n");
-        valid = 0;
+        return false;
     }
-    return valid;
+    return true;
 }
 
 // function to print the output 
 
-void printOutput(char name[], int numberOfTickets, char category[], float subTotal, float discount, float finalPrice)
+void printTicketDetails(char name[], int numberOfTickets, char category[], float subTotal, float discount, float finalPrice)
 {
     printf("---------Ticket details are:------------ \n");
     printf("Customer: %s\n", name);
