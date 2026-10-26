@@ -126,7 +126,7 @@ void addEmployee(int id, char *name, char *designation, struct employee *manager
     struct employee *newUser = (struct employee*)malloc(sizeof(struct employee));
     if(newUser == NULL)
     {
-        printf("Memory allocation failed\n");
+        printf("Unable to add employee.\n\n");
         return;
     }
 
