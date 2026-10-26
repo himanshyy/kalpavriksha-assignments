@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct employee
 {
@@ -17,7 +18,7 @@ struct employee *head;
 
 void addEmployee(int id, char *name, char *designation, struct employee *manager);
 struct employee *findEmployeeById(int id);
-int validEmployee(int id, struct employee *manager);
+bool validEmployee(int id, struct employee *manager);
 void displayHierarchy(struct employee *employee, int level);
 int employeeCount(struct employee *employee);
 void displayCompleteHierarchy(void);
@@ -45,23 +46,24 @@ int main()
         switch(option)
         {
         case 1:
+        {
             printf("Enter employee ID: \n");
-            scanf("%d",&id);
+            scanf("%d", &id);
 
             printf("Enter employee name: \n");
-            scanf("%99s",name);
+            scanf("%99s", name);
 
             printf("Enter Designation: \n");
             scanf("%99s", designation);
 
             printf("Enter ID of Reporting Manager (Enter 0 if dont have a reporting manager)\n");
-            scanf("%d",&managerId);
+            scanf("%d", &managerId);
 
-            struct employee *manager=NULL;
+            struct employee *manager = NULL;
         
             if(managerId != 0)
             {
-                manager=findEmployeeById(managerId);
+                manager = findEmployeeById(managerId);
                 if(managerId != 0 && manager == NULL)
                 {
                     printf("Reporting manager doest not exit.\n");
@@ -70,23 +72,24 @@ int main()
             }
             addEmployee(id, name, designation, manager);
             break;
+        }    
         case 2:
         {
-            int removeId;
+            int employeeId;
 
             printf("Enter employee ID to remove: ");
-            scanf("%d", &removeId);
+            scanf("%d", &employeeId);
 
-            removeEmployee(removeId);
+            removeEmployee(employeeId);
             break;
         }
         case 3:
         {
-            int searchId;
+            int employeeId;
             printf("Enter employee ID: ");
-            scanf("%d", &searchId);
+            scanf("%d", &employeeId);
             
-            struct employee *selectedEmployee = findEmployeeById(searchId);
+            struct employee *selectedEmployee = findEmployeeById(employeeId);
             
             if (selectedEmployee == NULL) 
             {
@@ -94,7 +97,7 @@ int main()
                 break;
             }
             
-            displayHierarchy(selectedEmployee,0);
+            displayHierarchy(selectedEmployee, 0);
             printf("Total employee under this employee: %d\n", employeeCount(selectedEmployee));
 
             break;
@@ -115,7 +118,7 @@ int main()
 
 void addEmployee(int id, char *name, char *designation, struct employee *manager)
 {
-    if(validEmployee(id, manager) == 0) 
+    if(!validEmployee(id, manager)) 
     {
         return;
     }
@@ -123,18 +126,18 @@ void addEmployee(int id, char *name, char *designation, struct employee *manager
     struct employee *newUser = (struct employee*)malloc(sizeof(struct employee));
     if(newUser == NULL)
     {
-        printf("Memory alloction failed\n");
+        printf("Memory allocation failed\n");
         return;
     }
 
-    newUser->id=id;
-    strcpy(newUser->name,name);
-    strcpy(newUser->designation,designation);
+    newUser->id = id;
+    strcpy(newUser->name, name);
+    strcpy(newUser->designation, designation);
 
-    newUser->manager=manager;
-    newUser->next=NULL;
-    newUser->report=NULL;
-    newUser->nextReport=NULL;
+    newUser->manager = manager;
+    newUser->next = NULL;
+    newUser->report = NULL;
+    newUser->nextReport = NULL;
 
     if(head == NULL)
     {
@@ -142,7 +145,7 @@ void addEmployee(int id, char *name, char *designation, struct employee *manager
     }
     else
     {
-        struct employee *current=head;
+        struct employee *current = head;
         while(current->next != NULL)
         {
             current = current->next;
@@ -159,7 +162,7 @@ void addEmployee(int id, char *name, char *designation, struct employee *manager
         else
         {
             struct employee *currentReport = manager->report; 
-            while(currentReport->nextReport!=NULL)
+            while(currentReport->nextReport != NULL)
             {
                 currentReport = currentReport->nextReport;
             }
@@ -183,21 +186,21 @@ struct employee *findEmployeeById(int id)
     return NULL;
 }
 
-int validEmployee(int id, struct employee *manager){
+bool validEmployee(int id, struct employee *manager){
     if(findEmployeeById(id) != NULL)
     {
         printf("Employee ID already exists\n\n");
-        return 0;
+        return false;
     }
     if(manager != NULL)
     {
         if(manager->id == id)
         {
             printf("Self reporting is not allowed\n");
-            return 0;
+            return false;
         }
     }
-    return 1;
+    return true;
 }
 
 void displayHierarchy(struct employee *employee, int level)
@@ -217,7 +220,7 @@ void displayHierarchy(struct employee *employee, int level)
 
     while(current != NULL)
     {
-        displayHierarchy(current, level+1);
+        displayHierarchy(current, level + 1);
         current = current->nextReport;
     }
 }
@@ -259,14 +262,14 @@ void displayCompleteHierarchy(void)
 
             total += 1 + employeeCount(current);
         }
-        current=current->next;
+        current = current->next;
     }
     printf("Total employees: %d\n\n",total);
 }
 
 void removeEmployee(int id)
 {
-    struct employee *target=findEmployeeById(id);
+    struct employee *target = findEmployeeById(id);
 
     if(target == NULL)
     {
@@ -385,12 +388,12 @@ int countDirectReport(struct employee *employee)
     {
         return 0;
     }
-    int count=0;
+    int count = 0;
     struct employee *current = employee->report;
     while(current != NULL)
     {
         count++;
-        current=current->nextReport;
+        current = current->nextReport;
     }
     return count;
 }
